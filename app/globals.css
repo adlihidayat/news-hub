@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --background: #f5f5f5;
   --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #f5f5f5;
     --foreground: #ededed;
   }
 }
@@ -21,7 +21,97 @@ body {
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .animation-smooth {
+    @apply duration-300 ease-in-out;
+  }
+  .animation-smooth-500 {
+    @apply duration-500 ease-in-out;
+  }
+  .animation-smooth-700 {
+    @apply duration-700 ease-in-out;
+  }
+
+  .bg-gradient-custom {
+    background: linear-gradient(
+      to top,
+      #00000090,
+      transparent 54%,
+      transparent 73%,
+      #00000096
+    );
+  }
+
+  .box {
+    clip-path: polygon(
+      0 16%,
+      8% 0,
+      48% 0,
+      86% 0,
+      86% 14%,
+      100% 14%,
+      100% 100%,
+      80% 100%,
+      80% 93%,
+      19% 93%,
+      20% 100%,
+      0 100%
+    );
+  }
+  .box-md {
+    clip-path: polygon(
+      0 16%,
+      8% 0,
+      48% 0,
+      90% 0,
+      90% 17%,
+      100% 17%,
+      100% 100%,
+      76% 100%,
+      76% 93%,
+      24% 93%,
+      24% 100%,
+      0 100%
+    );
+  }
+
+  .parent {
+    filter: url("#goo");
+  }
+}
+
+.slick-dots.slick-thumb {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: absolute;
+  margin: 0 0 20px 0;
+}
+
+.slick-dots.slick-thumb li {
+  width: 40px;
+  height: 3px;
+  margin: 0 3px;
+  border-radius: 999px;
+  transition: all 0.5s ease-in-out;
+  will-change: width;
+  background-color: #dfdfdf;
+}
+
+.slick-dots.slick-thumb li.slick-active {
+  background-color: #a99e9e;
+}
+
+@media (min-width: 768px) {
+  .slick-dots.slick-thumb {
+    border-radius: 9999px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: absolute;
+    margin: 0 0 24px 20px;
+  }
+  .slick-dots.slick-thumb li {
+    width: 11vw;
+    height: 5px;
   }
 }
