@@ -8,17 +8,6 @@ import Recommendation from "./components/Recommendation";
 import { useNews } from "./components/NewsProvider";
 import PopUp from "./components/PopUp";
 
-// Assuming NewsArticle is your API type that doesn't have `id`
-// and NewsData is your component's expected type
-interface NewsData {
-  id: number;
-  author: string;
-  title: string;
-  description: string;
-  urlToImage: string;
-  publishedAt: string;
-}
-
 // Example of your NewsArticle type
 interface NewsArticle {
   // other properties...

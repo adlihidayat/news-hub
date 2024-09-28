@@ -5,12 +5,14 @@ interface PopUpProps {
   setIsPopupActive: (isActive: boolean) => void; // Function to update the popup state
 }
 
-const PopUp: React.FC<PopUpProps> = ({ isActive, setIsPopupActive }) => {
+const PopUp: React.FC<PopUpProps> = ({ setIsPopupActive }) => {
   const closeHandler = () => {
     setIsPopupActive(false);
   };
   return (
-    <div className="hidden w-full h-10 text-sm fixed top-0 md:flex items-center justify-center space-x-3 bg-[#E7E7E7] z-30">
+    <div
+      className={`hidden w-full h-10 text-sm fixed top-0 "md:flex"  items-center justify-center space-x-3 bg-[#E7E7E7] z-30`}
+    >
       <span className=" text-black">
         Don&apos;t miss out—subscribe now and unlock all access with a 40%
         discount before it&apos;s gone!

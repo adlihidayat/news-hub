@@ -59,10 +59,8 @@ const fetchNewsByCategory = async (
 // Root layout component
 export default async function RootLayout({
   children,
-  pageProps,
 }: Readonly<{
   children: React.ReactNode; // Type annotation for children
-  pageProps: any; // Type annotation for page props
 }>) {
   // Fetching news data for different categories concurrently
   const [topHeadlines, sportsNews, financeNews, technologyNews] =
