@@ -17,8 +17,21 @@ export const metadata: Metadata = {
   description: "A concise, straightforward name for a news platform.",
 };
 
-// Function to filter articles based on certain criteria
-const filterArticles = (articles: any[]): any[] => {
+interface NewsArticle {
+  author: string;
+  content: string;
+  description: string;
+  publishedAt: string; // ISO 8601 format
+  source: {
+    id: string | null;
+    name: string;
+  };
+  title: string;
+  url: string;
+  urlToImage: string;
+}
+
+const filterArticles = (articles: NewsArticle[]): NewsArticle[] => {
   return articles.filter(
     (article) =>
       article.author &&
@@ -31,14 +44,15 @@ const filterArticles = (articles: any[]): any[] => {
   );
 };
 
-// Asynchronous function to fetch news articles by category
-const fetchNewsByCategory = async (category: string): Promise<any[]> => {
+const fetchNewsByCategory = async (
+  category: string
+): Promise<NewsArticle[]> => {
   const CLIENT_ID = process.env.NEXT_PUBLIC_NEWSAPI_KEY;
   const response = await fetch(
     `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${CLIENT_ID}`
   );
 
-  const data = await response.json();
+  const data: { articles: NewsArticle[] } = await response.json();
   return filterArticles(data.articles);
 };
 

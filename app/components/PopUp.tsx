@@ -12,8 +12,8 @@ const PopUp: React.FC<PopUpProps> = ({ isActive, setIsPopupActive }) => {
   return (
     <div className="hidden w-full h-10 text-sm fixed top-0 md:flex items-center justify-center space-x-3 bg-[#E7E7E7] z-30">
       <span className=" text-black">
-        Don't miss out—subscribe now and unlock all access with a 40% discount
-        before it's gone!
+        Don&apos;t miss out—subscribe now and unlock all access with a 40%
+        discount before it&apos;s gone!
       </span>
       <button className=" text-white bg-black rounded-full py-1 px-4 text-xs hover:opacity-50 animation-smooth">
         Subscribe

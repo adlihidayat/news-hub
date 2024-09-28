@@ -135,7 +135,7 @@ const Profile: React.FC<ProfileProps> = ({ title }) => {
               />
             </button>
             <p className="mb-2 mt-4 text-xl text-black">
-              You Haven't logged in yet
+              You Haven&apos;t logged in yet
             </p>
             <button
               onClick={redirectToGoogleLogin}

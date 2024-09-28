@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNews } from "../components/NewsProvider";
 import { useRouter } from "next/navigation";
 
@@ -84,7 +84,7 @@ const Page: React.FC = () => {
       <div className="w-[80vw] mb-7 md:mb-10 relative bg-slate-40 text-center flex flex-col items-center">
         <span className="text-lg xl:text-2xl font-semibold">sports news</span>
         <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl md:w-[70%] md:text-center font-bold">
-          Master your money, shape your future.
+          Fuel your passion, live through sport.
         </h1>
       </div>
       <section

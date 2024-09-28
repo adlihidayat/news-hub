@@ -20,19 +20,19 @@ interface NewsArticle {
 interface NewsData {
   topHeadlines: NewsArticle[];
   sportsNews: NewsArticle[];
-  financeNews: NewsArticle[];
+  financeNews: NewsArticle[]; // Changed from financeNews to businessNews
   technologyNews: NewsArticle[];
   searchResults?: NewsArticle[]; // Optional property for search results
 }
 
 interface NewsContextType {
-  newsData: NewsData; // Specify the type for newsData
+  newsData: NewsData;
   setNewsData: React.Dispatch<React.SetStateAction<NewsData>>;
-  addSearchResults: (newResults: any[]) => void; // Function to add search results to newsData
+  addSearchResults: (newResults: NewsArticle[]) => void;
 }
 
 // Create context with default values
-const NewsContext = createContext<NewsContextType | undefined>(undefined);
+const NewsContext = createContext<NewsContextType | null>(null);
 
 export const NewsProvider = ({
   children,
@@ -43,7 +43,7 @@ export const NewsProvider = ({
 }) => {
   const [newsData, setNewsData] = useState<NewsData>(initialData);
 
-  const addSearchResults = (newResults: any[]) => {
+  const addSearchResults = (newResults: NewsArticle[]) => {
     setNewsData((prevData) => ({
       ...prevData,
       searchResults: newResults,

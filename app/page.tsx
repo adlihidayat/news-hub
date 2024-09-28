@@ -1,12 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Featured from "./components/Featured";
 import Hero from "./components/Hero";
 import HomeSpecificSection from "./components/HomeSpecificSection";
 import MissedNews from "./components/MissedNews";
 import Recommendation from "./components/Recommendation";
 import { useNews } from "./components/NewsProvider";
-import Image from "next/image";
 import PopUp from "./components/PopUp";
 
 // Assuming NewsArticle is your API type that doesn't have `id`

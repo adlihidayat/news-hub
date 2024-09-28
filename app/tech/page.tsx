@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNews } from "../components/NewsProvider";
 import { useRouter } from "next/navigation";
 
@@ -86,7 +86,7 @@ const Page: React.FC = () => {
           technology news
         </span>
         <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl md:w-[70%] md:text-center font-bold">
-          Master your money, shape your future.
+          Latest Innovations and Breakthroughs in Tech.
         </h1>
       </div>
       <section

@@ -70,7 +70,7 @@ const Featured: React.FC<FeaturedProps> = ({ newsData }) => {
         <div className="uppercase w-[100%] md:w-auto mb-10">
           <span className="font-semibold xl:text-lg ">featured</span>
           <h1 className="text-3xl leading-7 lg:text-5xl xl:text-[64px] uppercase font-semibold lg:font-normal mt-1">
-            Top Stories You Can't Miss.
+            Top Stories You Can&apos;t Miss&lsquo;
           </h1>
         </div>
         <div className="w-[100%]">
