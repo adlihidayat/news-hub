@@ -105,36 +105,51 @@ const page = () => {
             <ul className=" absolute bg-white w-full text-center top-14 z-20 rounded-xl p-3  text-sm">
               <li>
                 <button
+                  disabled={sortBy === "popularity"}
                   onClick={(e) => {
                     e.preventDefault();
                     setSortBy("popularity");
                     setIsSortByActive(false);
                   }}
-                  className=" bg-[#838383] text-white w-full rounded-lg py-2"
+                  className={`${
+                    sortBy === "popularity"
+                      ? "bg-[#838383] text-white"
+                      : " bg-white hover:bg-[#f1f1f1]"
+                  }  w-full rounded-lg py-2 animation-smooth`}
                 >
                   Popularity
                 </button>
               </li>
               <li>
                 <button
+                  disabled={sortBy === "publishedAt"}
                   onClick={(e) => {
                     e.preventDefault();
                     setSortBy("publishedAt");
                     setIsSortByActive(false);
                   }}
-                  className="  w-full rounded-lg py-2"
+                  className={`${
+                    sortBy === "publishedAt"
+                      ? "bg-[#838383] text-white"
+                      : " bg-white hover:bg-[#f1f1f1]"
+                  }  w-full rounded-lg py-2 animation-smooth`}
                 >
                   Newest
                 </button>
               </li>
               <li>
                 <button
+                  disabled={sortBy === "relevancy"}
                   onClick={(e) => {
                     e.preventDefault();
                     setSortBy("relevancy");
                     setIsSortByActive(false);
                   }}
-                  className="  w-full rounded-lg py-2"
+                  className={`${
+                    sortBy === "relevancy"
+                      ? "bg-[#838383] text-white"
+                      : " bg-white hover:bg-[#f1f1f1]"
+                  }  w-full rounded-lg py-2 animation-smooth`}
                 >
                   Relevant
                 </button>
