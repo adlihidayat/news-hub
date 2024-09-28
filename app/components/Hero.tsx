@@ -4,36 +4,26 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { motion, AnimatePresence } from "framer-motion";
-import { div } from "framer-motion/client";
+import { motion } from "framer-motion";
 import Link from "next/link";
 
-const variants = {
-  "0": {
-    y: 0,
-    transition: {
-      y: { stiffness: 1000, velocity: -100 },
-    },
-  },
-  "1": {
-    y: -205,
-    transition: {
-      y: { stiffness: 1000, velocity: -100 },
-    },
-  },
-  "2": {
-    y: -410,
-    transition: {
-      y: { stiffness: 1000, velocity: -100 },
-    },
-  },
-};
+// Define the type for the news item data
+interface NewsItemData {
+  urlToImage: string;
+  title: string;
+}
 
-const SlideItem = ({ data, index, isMobile }: any) => {
-  // console.log(index, " : ", data.urlToImage);
+// Define the props for SlideItem component
+interface SlideItemProps {
+  data: NewsItemData;
+  index: number;
+  isMobile: boolean;
+}
+
+const SlideItem: React.FC<SlideItemProps> = ({ data, index, isMobile }) => {
   return (
     <Link href={`/read/topHeadlines/${index}`} className="group">
-      <div className="parent overflow-hidden flex justify-center md:pl-[4%] ">
+      <div className="parent overflow-hidden flex justify-center md:pl-[4%]">
         <div className="box md:box-md overflow-hidden w-[80vw] h-[300px] md:h-[400px] 2xl:h-[500px]">
           <Image
             priority
@@ -76,7 +66,12 @@ const SlideItem = ({ data, index, isMobile }: any) => {
   );
 };
 
-const Hero = ({ topNews }: any) => {
+// Define the props for Hero component
+interface HeroProps {
+  topNews: NewsItemData[];
+}
+
+const Hero: React.FC<HeroProps> = ({ topNews }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -101,7 +96,7 @@ const Hero = ({ topNews }: any) => {
       ></div>
     ),
     dotsClass: "slick-dots slick-thumb",
-    afterChange: (current: any) => setActiveSlide(current),
+    afterChange: (current: number) => setActiveSlide(current),
   };
 
   useEffect(() => {
@@ -115,10 +110,29 @@ const Hero = ({ topNews }: any) => {
       <div className="flex relative justify-center md:pl-[4%] mb-4 h-[120px] sm:h-[60px] md:h-[85px] xl:h-[150px] overflow-y-hidden">
         <motion.h1
           animate={activeSlide.toString()}
-          variants={variants}
-          className=" text-black text-3xl leading-7 md:text-4xl xl:leading-[70px] xl:text-[64px] w-[80vw]  md:max-w-[600px] lg:max-w-max absolute"
+          variants={{
+            "0": {
+              y: 0,
+              transition: {
+                y: { stiffness: 1000, velocity: -100 },
+              },
+            },
+            "1": {
+              y: -205,
+              transition: {
+                y: { stiffness: 1000, velocity: -100 },
+              },
+            },
+            "2": {
+              y: -410,
+              transition: {
+                y: { stiffness: 1000, velocity: -100 },
+              },
+            },
+          }}
+          className="text-black text-3xl leading-7 md:text-4xl xl:leading-[70px] xl:text-[64px] w-[80vw] md:max-w-[600px] lg:max-w-max absolute"
         >
-          <span className="h-52 block ">{topNews[0].title}</span>
+          <span className="h-52 block">{topNews[0].title}</span>
           <span className="h-52 block">{topNews[1].title}</span>
           <span className="h-52 block">{topNews[2].title}</span>
         </motion.h1>

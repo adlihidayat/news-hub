@@ -1,7 +1,11 @@
 import Image from "next/image";
 import React from "react";
+interface PopUpProps {
+  isActive: boolean; // Indicates if the popup is active
+  setIsPopupActive: (isActive: boolean) => void; // Function to update the popup state
+}
 
-const PopUp = ({ isActive, setIsPopupActive }: any) => {
+const PopUp: React.FC<PopUpProps> = ({ isActive, setIsPopupActive }) => {
   const closeHandler = () => {
     setIsPopupActive(false);
   };

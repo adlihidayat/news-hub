@@ -2,9 +2,21 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Profile = ({ title }: any) => {
-  const [isActive, setIsActive] = useState(false);
-  const [user, setUser] = useState<any>(null);
+// Define the user data type based on expected response from Google API
+interface User {
+  name: string;
+  email: string;
+  picture: string;
+}
+
+// Define the props type
+interface ProfileProps {
+  title: string; // The title prop
+}
+
+const Profile: React.FC<ProfileProps> = ({ title }) => {
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null); // User can be User type or null
 
   useEffect(() => {
     // Check if there is a token in the URL
@@ -18,7 +30,7 @@ const Profile = ({ title }: any) => {
 
   const fetchUserData = async (accessToken: string) => {
     try {
-      const res = await axios.get(
+      const res = await axios.get<User>(
         "https://www.googleapis.com/oauth2/v3/userinfo",
         {
           headers: {
@@ -46,7 +58,7 @@ const Profile = ({ title }: any) => {
         onClick={() => {
           setIsActive(!isActive);
         }}
-        className="flex items-center space-x-4 md:space-x-0 py-4 border-b md:border-b-0 border-[#C1C1C1] px-6 md:px-0 group  z-10 w-full md:w-auto"
+        className="flex items-center space-x-4 md:space-x-0 py-4 border-b md:border-b-0 border-[#C1C1C1] px-6 md:px-0 group z-10 w-full md:w-auto"
       >
         <Image
           src={`/nav/profile.svg`}
@@ -59,9 +71,9 @@ const Profile = ({ title }: any) => {
       <div
         className={`text-[#B1B1BB] ${
           isActive ? "hidden md:flex" : "hidden"
-        } md:absolute md:bg-white   ${
+        } md:absolute md:bg-white ${
           user ? "h-56 w-72" : "h-40 w-60"
-        } md:text-sm md:left-12 top-2 md:rounded-[25px] animation-smooth overflow-hidden  flex-col items-center justify-center z-20`}
+        } md:text-sm md:left-12 top-2 md:rounded-[25px] animation-smooth overflow-hidden flex-col items-center justify-center z-20`}
       >
         {user ? (
           <>
@@ -69,9 +81,8 @@ const Profile = ({ title }: any) => {
               onClick={() => {
                 setIsActive(false);
               }}
-              className=" w-6 h-6 bg-white absolute top-3 left-3 z-20 rounded-full flex justify-center items-center hover:opacity-50 animation-smooth"
+              className="w-6 h-6 bg-white absolute top-3 left-3 z-20 rounded-full flex justify-center items-center hover:opacity-50 animation-smooth"
             >
-              {" "}
               <Image
                 src={`/others/close.svg`}
                 alt={title}
@@ -80,7 +91,7 @@ const Profile = ({ title }: any) => {
                 className={`w-4 object-cover opacity-20 md:opacity-100 animation-smooth `}
               />
             </button>
-            <div className=" w-full h-20 top-0 left-0 absolute bg-black">
+            <div className="w-full h-20 top-0 left-0 absolute bg-black">
               <Image
                 src={"/img.jpg"}
                 alt={title}
@@ -89,7 +100,7 @@ const Profile = ({ title }: any) => {
                 className={`w-full h-full object-cover opacity-20 md:opacity-100 animation-smooth `}
               />
             </div>
-            <div className=" w-16 h-16 rounded-full bg-slate-100 z-20 mb-4 mt-6 overflow-hidden">
+            <div className="w-16 h-16 rounded-full bg-slate-100 z-20 mb-4 mt-6 overflow-hidden">
               <Image
                 src={user.picture}
                 alt={"profile picture"}
@@ -98,12 +109,8 @@ const Profile = ({ title }: any) => {
                 className={`w-full h-full object-cover opacity-20 md:opacity-100 animation-smooth `}
               />
             </div>
-            <span className=" text-black">
-              {user ? user.name : "You havent login"}
-            </span>
-            <span className="mb-3">
-              {user ? user.email : "Start Login Now"}
-            </span>
+            <span className="text-black">{user.name}</span>
+            <span className="mb-3">{user.email}</span>
             <button
               onClick={() => setUser(null)}
               className="border border-[#B1B1BB] rounded-[6px] px-5 hover:opacity-50 animation-smooth"
@@ -117,9 +124,8 @@ const Profile = ({ title }: any) => {
               onClick={() => {
                 setIsActive(false);
               }}
-              className=" w-6 h-6 bg-white absolute top-3 left-3 z-20 rounded-full flex justify-center items-center hover:opacity-50 animation-smooth"
+              className="w-6 h-6 bg-white absolute top-3 left-3 z-20 rounded-full flex justify-center items-center hover:opacity-50 animation-smooth"
             >
-              {" "}
               <Image
                 src={`/others/close.svg`}
                 alt={title}
@@ -128,8 +134,8 @@ const Profile = ({ title }: any) => {
                 className={`w-4 object-cover opacity-20 md:opacity-100 animation-smooth `}
               />
             </button>
-            <p className=" mb-2 mt-4 text-xl text-black">
-              You Havent login yet
+            <p className="mb-2 mt-4 text-xl text-black">
+              You Haven't logged in yet
             </p>
             <button
               onClick={redirectToGoogleLogin}

@@ -3,7 +3,29 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export const NavButton = ({ activeNav, setActiveNav, title, link }: any) => {
+// Define the NavButton props interface
+interface NavButtonProps {
+  activeNav: string;
+  setActiveNav: (title: string) => void;
+  title: string;
+  link: string;
+}
+
+// Define the SearchButton props interface
+interface SearchButtonProps {
+  isActive: boolean;
+  title: string;
+  setSearched: (title: string) => void;
+  sortBy: string;
+  fetchNews: (title: string, sortBy: string) => void;
+}
+
+export const NavButton: React.FC<NavButtonProps> = ({
+  activeNav,
+  setActiveNav,
+  title,
+  link,
+}) => {
   return (
     <Link
       href={`/${link}`}
@@ -41,13 +63,13 @@ export const NavButton = ({ activeNav, setActiveNav, title, link }: any) => {
   );
 };
 
-export const SearchButton = ({
+export const SearchButton: React.FC<SearchButtonProps> = ({
   isActive,
   title,
   setSearched,
   sortBy,
   fetchNews,
-}: any) => {
+}) => {
   const handler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setSearched(title);
