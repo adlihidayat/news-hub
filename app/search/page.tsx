@@ -113,7 +113,7 @@ const Page = () => {
               e.preventDefault();
               setIsSortByActive(!isSortByActive);
             }}
-            className="px-3 py-1 rounded md:rounded-lg h-full w-full md:w-40 lg:w-48 cursor-pointer bg-white text-gray-600 md:text-black capitalize"
+            className="px-3 py-1 rounded md:rounded-lg h-full w-full md:w-40 lg:w-48 cursor-pointer bg-white text-gray-600 md:text-black capitalize hover:bg-[#ffffff71] animation-smooth"
           >
             {sortBy === "publishedAt" ? "newest" : sortBy}
           </button>

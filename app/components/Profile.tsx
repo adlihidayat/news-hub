@@ -46,7 +46,7 @@ const Profile: React.FC<ProfileProps> = ({ title }) => {
 
   const redirectToGoogleLogin = () => {
     const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-    const REDIRECT_URI = "http://localhost:3000"; // Your redirect URI
+    const REDIRECT_URI = "https://newshub-net.vercel.app"; // Your redirect URI
     const SCOPE = "openid profile email";
 
     window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=${SCOPE}&prompt=consent`;
