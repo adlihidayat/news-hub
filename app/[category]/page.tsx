@@ -13,11 +13,6 @@ export interface NewsData {
   technologyNews: NewsArticle[];
 }
 
-interface NewsItemProps extends NewsArticle {
-  type: string;
-  id: number; // Add id to the props
-}
-
 const pagesData = {
   sportsNews: {
     title: "sports news",

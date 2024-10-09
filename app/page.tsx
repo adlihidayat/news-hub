@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import Featured from "./components/Featured";
 import Hero from "./components/Hero";
 import HomeSpecificSection from "./components/HomeSpecificSection";

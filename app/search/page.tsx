@@ -1,27 +1,10 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import { SearchButton } from "../components/Button";
 import { useNews } from "@/contexts/NewsProvider"; // Import useNews to access context
 import { useRouter } from "next/navigation";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import { NewsArticle } from "@/types/newsArticle";
-
-// Define the type for a news article
-
-// Function to filter articles based on certain criteria
-const filterArticles = (articles: NewsArticle[]): NewsArticle[] => {
-  return articles.filter(
-    (article) =>
-      article.author &&
-      article.urlToImage &&
-      article.content &&
-      article.description &&
-      article.publishedAt &&
-      article.title &&
-      article.url
-  );
-};
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 

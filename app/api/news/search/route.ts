@@ -2,7 +2,6 @@ import { fetchNewsByTitle } from '@/lib/apiClient';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
-  const CLIENT_ID = process.env.NEXT_PUBLIC_NEWSAPI_KEY;
   if (req.method === 'GET') {
     const title = req.nextUrl.searchParams.get('title');
     const sortBy = req.nextUrl.searchParams.get('sortBy');
