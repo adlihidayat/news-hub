@@ -49,11 +49,11 @@ const Nav = () => {
   useEffect(() => {
     if (pathname.includes("/search")) {
       setActiveNav("search");
-    } else if (pathname.includes("/sports")) {
+    } else if (pathname.includes("/sportsNews")) {
       setActiveNav("sports");
-    } else if (pathname.includes("/finance")) {
+    } else if (pathname.includes("/financeNews")) {
       setActiveNav("finance");
-    } else if (pathname.includes("/tech")) {
+    } else if (pathname.includes("/technologyNews")) {
       setActiveNav("tech");
     } else {
       setActiveNav("home");
@@ -108,19 +108,19 @@ const Nav = () => {
           activeNav={activeNav}
           setActiveNav={setActiveNav}
           title={"sports"}
-          link={"sports"}
+          link={"sportsNews"}
         />
         <NavButton
           activeNav={activeNav}
           setActiveNav={setActiveNav}
           title={"finance"}
-          link={"finance"}
+          link={"financeNews"}
         />
         <NavButton
           activeNav={activeNav}
           setActiveNav={setActiveNav}
           title={"tech"}
-          link={"tech"}
+          link={"technologyNews"}
         />
         <Profile title={"profile"} />
       </nav>

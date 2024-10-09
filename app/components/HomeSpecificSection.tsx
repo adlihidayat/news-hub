@@ -1,69 +1,14 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
-
-// Define the type for the news item data
-interface NewsItemData {
-  author: string;
-  publishedAt: string;
-  title: string;
-  description: string;
-  urlToImage: string;
-}
-
-// Define the props for the NewsItem component
-interface NewsItemProps {
-  id: number;
-  data: NewsItemData;
-  title: string;
-}
-
-const NewsItem: React.FC<NewsItemProps> = ({ id, data, title }) => {
-  const router = useRouter();
-
-  const handler = () => {
-    router.push(`/read/${title}News/${id}`);
-  };
-
-  return (
-    <div
-      className="relative rounded-3xl overflow-hidden w-full group cursor-pointer"
-      onClick={handler}
-    >
-      <div className="h-full w-full absolute animation-smooth p-5 text-white flex flex-col justify-between">
-        <div className="w-full flex justify-between z-20 relative">
-          <span className="w-32 md:w-[40%] lg:w-[60%] truncate">
-            {data.author}
-          </span>
-          <span>{new Date(data.publishedAt).toLocaleDateString("en-GB")}</span>
-        </div>
-        <div>
-          <h2 className="relative z-20 leading-[20px] text-lg lg:text-xl lg:leading-[22px] h-[63px] lg:h-11 overflow-y-hidden lg:mb-2">
-            {data.title}
-          </h2>
-          <p className="hidden lg:block relative z-20 leading-4 h-0 group-hover:h-[50px] overflow-y-hidden text-sm animation-smooth">
-            {data.description}
-          </p>
-        </div>
-        <div className="w-full h-full absolute top-0 left-0 z-10 rounded-xl bg-gradient-custom"></div>
-      </div>
-      <Image
-        priority
-        unoptimized
-        src={data.urlToImage}
-        className={`w-full md:group-hover:scale-[115%] h-60 lg:h-80 2xl:h-[400px] object-cover animation-smooth`}
-        alt="news illustration"
-        width={500}
-        height={500}
-      />
-    </div>
-  );
-};
+import NewsItem from "./NewsItem";
+import { NewsArticle } from "@/types/newsArticle";
 
 // Define the props for the HomeSpecificSection component
 interface HomeSpecificSectionProps {
-  newsData: NewsItemData[];
+  newsData: NewsArticle[];
   title: string;
   desc: string;
 }
@@ -100,14 +45,14 @@ const HomeSpecificSection: React.FC<HomeSpecificSectionProps> = ({
         </Link>
       </div>
       <div className="w-[80vw] flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-4 2xl:space-x-6 mb-4 2xl:mb-6">
-        <NewsItem data={newsData[0]} title={title} id={0} />
-        <NewsItem data={newsData[1]} title={title} id={1} />
-        <NewsItem data={newsData[2]} title={title} id={2} />
+        <NewsItem {...newsData[0]} id={0} type={title} />
+        <NewsItem {...newsData[1]} id={1} type={title} />
+        <NewsItem {...newsData[2]} id={2} type={title} />
       </div>
       <div className="hidden w-[80vw] md:flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-4 2xl:space-x-6">
-        <NewsItem data={newsData[3]} title={title} id={3} />
-        <NewsItem data={newsData[4]} title={title} id={4} />
-        <NewsItem data={newsData[5]} title={title} id={5} />
+        <NewsItem {...newsData[3]} id={3} type={title} />
+        <NewsItem {...newsData[4]} id={4} type={title} />
+        <NewsItem {...newsData[5]} id={5} type={title} />
       </div>
     </section>
   );

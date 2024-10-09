@@ -5,22 +5,12 @@ import Hero from "./components/Hero";
 import HomeSpecificSection from "./components/HomeSpecificSection";
 import MissedNews from "./components/MissedNews";
 import Recommendation from "./components/Recommendation";
-import { useNews } from "./components/NewsProvider";
+import { useNews } from "@/contexts/NewsProvider";
 import PopUp from "./components/PopUp";
-
-// Example of your NewsArticle type
-interface NewsArticle {
-  // other properties...
-  author: string;
-  title: string;
-  description: string;
-  urlToImage: string;
-  publishedAt: string;
-}
+import { NewsArticle } from "@/types/newsArticle";
 
 export default function Home() {
   const { newsData } = useNews();
-  const [isPopupActive, setIsPopupActive] = useState(true);
 
   // Transforming the newsData to match the expected type
   const topHeadlines = newsData.topHeadlines.map(
@@ -36,9 +26,7 @@ export default function Home() {
 
   return (
     <div className="w-full overflow-x-hidden pb-20">
-      {isPopupActive && (
-        <PopUp isActive={isPopupActive} setIsPopupActive={setIsPopupActive} />
-      )}
+      <PopUp />
       <Hero topNews={topHeadlines} />
       <Recommendation newsData={topHeadlines} />
       <HomeSpecificSection

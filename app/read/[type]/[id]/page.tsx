@@ -1,5 +1,5 @@
 "use client";
-import { useNews } from "@/app/components/NewsProvider";
+import { useNews } from "@/contexts/NewsProvider";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -7,16 +7,16 @@ import React from "react";
 
 interface NewsArticle {
   author: string;
+  urlToImage: string;
   content: string;
   description: string;
   publishedAt: string;
+  title: string;
+  url: string;
   source: {
     id: string | null;
     name: string;
   };
-  title: string;
-  url: string;
-  urlToImage: string;
 }
 
 interface NewsData {

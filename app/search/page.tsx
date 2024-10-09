@@ -2,20 +2,12 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { SearchButton } from "../components/Button";
-import { useNews } from "@/app/components/NewsProvider"; // Import useNews to access context
+import { useNews } from "@/contexts/NewsProvider"; // Import useNews to access context
 import { useRouter } from "next/navigation";
+import useSWR, { mutate } from "swr";
+import { NewsArticle } from "@/types/newsArticle";
 
 // Define the type for a news article
-interface NewsArticle {
-  author: string;
-  urlToImage: string;
-  content: string;
-  description: string;
-  publishedAt: string;
-  title: string;
-  url: string;
-  source: { id: string | null; name: string }; // Add the source property
-}
 
 // Function to filter articles based on certain criteria
 const filterArticles = (articles: NewsArticle[]): NewsArticle[] => {
@@ -30,6 +22,8 @@ const filterArticles = (articles: NewsArticle[]): NewsArticle[] => {
       article.url
   );
 };
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 // Component to render individual news items
 const NewsItem = ({ data, index }: { data: NewsArticle; index: number }) => {
@@ -79,18 +73,25 @@ const Page = () => {
   const [isSortByActive, setIsSortByActive] = useState<boolean>(false);
   const [searched, setSearched] = useState<string>("");
 
-  // Fetch news articles based on search title and sorting criteria
-  const fetchNews = async (title: string, sortBy: string) => {
-    const apiKey = process.env.NEXT_PUBLIC_NEWSAPI_KEY;
-    const url = `https://newsapi.org/v2/everything?q=${title}&sortBy=${sortBy}&pageSize=15&apiKey=${apiKey}`;
+  // Move the useSWR hook inside the handleSearch function
+  const { data, error } = useSWR(
+    searched ? `/api/news/search?title=${searched}&sortBy=${sortBy}` : null,
+    fetcher
+  );
 
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      const filteredData = filterArticles(data.articles || []);
-      addSearchResults(filteredData); // Add search results to newsData
-    } catch (error) {
-      console.error("Error fetching news:", error);
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    if (!title.trim()) {
+      console.error("Search title is empty"); // Log an error message
+      return; // Exit if the title is empty
+    }
+
+    setSearched(title); // Set the searched title
+    // Optionally, you can trigger a mutation to update the context with current data
+    if (!error) {
+      addSearchResults(data); // Update context with search results if no error
+      setTitle(""); // Clear the search input field
     }
   };
 
@@ -98,12 +99,13 @@ const Page = () => {
     <main className="w-screen pt-24 md:pt-20 pl-[7vw] md:pl-[12vw] md:pb-20 pr-[10vw] g-slate-500 text-black overflow-x-hidden">
       <h1 className="text-3xl leading-7 xl:text-5xl mb-5">Search news</h1>
       <form
-        action=""
+        onSubmit={handleSearch}
         className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:w-[80vw] md:justify-between md:space-x-3 mb-5 md:mb-8"
       >
         <input
           onChange={(e) => setTitle(e.target.value)}
           type="text"
+          value={title}
           placeholder="Insert news title here"
           className="px-3 py-1 rounded md:rounded-lg md:flex-1"
         />
@@ -173,13 +175,19 @@ const Page = () => {
             </ul>
           )}
         </div>
-        <SearchButton
-          isActive={title !== ""}
-          title={title}
-          sortBy={sortBy}
-          setSearched={setSearched}
-          fetchNews={fetchNews}
-        />
+        <button
+          type="submit"
+          className="w-auto h-10 md:w-10 bg-black text-white rounded md:rounded-lg hover:opacity-50 animation-smooth flex justify-center items-center disabled:opacity-60"
+        >
+          <span className="md:hidden">Search</span>
+          <Image
+            className={`object-cover rounded-xl hidden md:block w-5`}
+            src={"/others/search-icon.svg"}
+            alt="news illustration"
+            width={500}
+            height={500}
+          />
+        </button>
       </form>
       {searched === "" ? (
         <div className="w-full text-center pt-40">

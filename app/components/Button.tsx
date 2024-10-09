@@ -17,7 +17,11 @@ interface SearchButtonProps {
   title: string;
   setSearched: (title: string) => void;
   sortBy: string;
-  fetchNews: (title: string, sortBy: string) => void;
+  fetchNews: (
+    e: React.MouseEvent<HTMLButtonElement>,
+    title: string,
+    sortBy: string
+  ) => void; // Update here
 }
 
 export const NavButton: React.FC<NavButtonProps> = ({
@@ -73,7 +77,7 @@ export const SearchButton: React.FC<SearchButtonProps> = ({
   const handler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setSearched(title);
-    fetchNews(title, sortBy); // Fetch news based on title and sortBy
+    fetchNews(e, title, sortBy); // Fetch news based on title and sortBy
   };
 
   return (
